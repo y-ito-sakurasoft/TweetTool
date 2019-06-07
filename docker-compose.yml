@@ -14,3 +14,13 @@ services:
       - "80:80"
     depends_on:
       - "node"
+  mysql:
+    build: ./mysql
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/sqls:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+    command: --innodb-use-native-aio=0

@@ -22,7 +22,12 @@
 
     var socketio = io();
 
-    socketio.on("connected", function (data) { });
+    socketio.on("connected", function (data) {
+      data.forEach(e => {
+        var msg = e.date + " [" + e.name + "] " + e.text;
+        addMessage(msg);
+      });
+     });
     socketio.on("publish", function (data) { 
       var msg = data.date + " [" + data.name + "] " + data.text;
       addMessage(msg);
