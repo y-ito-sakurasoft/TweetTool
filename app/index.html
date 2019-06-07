@@ -1,1 +1,61 @@
-hello world!
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>お手軽つぶやきツール♪</title>
+</head>
+
+<body>
+  <div>
+    <span>名前</span>
+    <input type="text" id="input_name" style="width:160px;" />
+  </div>
+  <div>
+    <span>メッセージ</span>
+    <input type="text" id="input_msg" style="width:400px;" />
+  </div>
+  <button onclick="publishMessage();">ついーと</button>
+  <div id="msg"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+
+    var socketio = io();
+
+    socketio.on("connected", function (data) { });
+    socketio.on("publish", function (data) { 
+      var msg = data.date + " [" + data.name + "] " + data.text;
+      addMessage(msg);
+    });
+    socketio.on("disconnect", function () { });
+
+    function publishMessage() {
+      var inputName = document.getElementById('input_name');
+      var name = inputName.value;
+      if (name == '') name = '名無し';
+            
+      var inputText = document.getElementById('input_msg');
+      var text = inputText.value;
+      if (text == '') return;
+
+      socketio.emit("publish", { 
+        date: new Date().toLocaleTimeString(),
+        name: name,
+        text: text,
+      });
+      inputText.value = '';
+    }
+    
+    function addMessage(msg) {
+      var msgArea = document.getElementById("msg");
+      var domMsg = document.createElement('div');
+      domMsg.innerHTML = msg;
+      msgArea.appendChild(domMsg);
+    }
+
+    socketio.emit("connected");
+
+  </script>
+</body>
+
+</html>
