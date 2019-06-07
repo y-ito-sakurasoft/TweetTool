@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  node:
+    tty: true
+    build: .
+    volumes:
+      - ./app:/app
+    ports:
+      - "80:3000"
