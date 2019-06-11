@@ -34,6 +34,10 @@
     });
     socketio.on("disconnect", function () { });
 
+    socketio.on("timeout", function () { 
+      addMessage('セッション切れらしい…');
+    });
+
     function publishMessage() {
       var inputName = document.getElementById('input_name');
       var name = inputName.value;
