@@ -8,6 +8,8 @@ services:
       - ./app:/app
     ports:
       - "3000"
+    depends_on:
+      - "mysql"
   nginx:
     build: ./nginx
     ports:
