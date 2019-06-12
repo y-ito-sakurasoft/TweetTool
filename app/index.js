@@ -1,7 +1,23 @@
 var fs = require("fs");
 var server = require("http").createServer(function (req, res) {
-    res.writeHead(200, { "Content-Type": "text/html" });
-    var output = fs.readFileSync(__dirname + '/index.html', "utf-8");
+    var url = req.url;
+    var tmp = url.split('.');
+    var ext = tmp[tmp.length - 1];
+    var path = '.' + url;
+    console.log(path);
+    switch(ext) {
+        case 'js':
+            res.writeHead(200, { "Content-Type": "text/javascript" });
+            break;
+        case 'css':
+            res.writeHead(200, { "Content-Type": "text/css" });
+            break;
+        case '/':
+            res.writeHead(200, { "Content-Type": "text/html" });
+            path = __dirname + '/index.html';
+            break;
+    }
+    var output = fs.readFileSync(path);
     res.end(output);
 }).listen(3000);
 

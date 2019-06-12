@@ -1,0 +1,44 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic", YuGothic, "ヒラギノ角ゴ ProN W3", Hiragino Kaku Gothic ProN, Arial, "メイリオ", Meiryo, sans-serif;
+}
+
+$color-button: #95a5ff;
+
+// button
+@mixin button-bg($bg) {
+    background: $bg;
+    &:hover {
+      background: darken($bg,8%);
+      transition: all 0.3s ease;
+    }
+    &:active {
+      background: darken($bg,25%);
+    } 
+}
+
+button {
+    @include button-bg($color-button);
+    color: white;
+    text-decoration: none;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+@mixin input-area() {
+    border: 0;
+    padding: 4px;
+    font-size: 1em;
+    border: solid 1px #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5);
+}
+
+// input text
+input {
+    @include input-area();
+}

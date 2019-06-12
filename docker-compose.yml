@@ -34,3 +34,9 @@ services:
     volumes:
       - ./redis/data:/data
     command: redis-server --appendonly yes
+  gulp:
+    build: ./gulp
+    tty: true
+    volumes:
+      - ./app/css:/home/node/dist/css:z
+      - ./gulp:/home/node
